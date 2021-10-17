@@ -2,6 +2,8 @@
 // @desc        Manages permissions for the bot
 // @access      mod
 
+const Discord = require('discord.js');
+
 const Permissions = require('../../models/permissions');
 
 module.exports = {
@@ -11,12 +13,12 @@ module.exports = {
   mod: true,
   execute: async (message, args) => {
     const perms = await Permissions.find({ guildId: message.guildId });
-    console.log(perms);
     // if perms don't exist for this guild, add them
     if (perms.length === 0) {
       const newPerm = new Permissions({
         guildId: message.guildId,
-        permissionName: 'Create Channels',
+        permissionName: 'create-channels',
+        description: 'Allows the bot to create channels.',
         allowed: false,
       });
 
@@ -25,7 +27,14 @@ module.exports = {
         'Created Permissions for this server! Try using the permissions command again!'
       );
     } else {
-      message.channel.send('List of permissions');
+      const msgEmbed = new Discord.MessageEmbed()
+        .setTitle('Penny Permissions')
+        .setFooter(message.author.username, message.author.avatarURL());
+      for (let i = 0; i < perms.length; i++) {
+        msgEmbed.addField(perms[i].permissionName, perms[i].description, true);
+      }
+
+      message.channel.send({ embeds: [msgEmbed] });
     }
   },
 };

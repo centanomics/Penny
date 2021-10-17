@@ -15,6 +15,10 @@ const PermissionsSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+  },
   allowed: {
     type: Boolean,
     required: false,
