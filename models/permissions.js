@@ -4,7 +4,7 @@ const uuid = require('uuid');
 const PermissionsSchema = mongoose.Schema({
   _id: {
     type: String,
-    default: uuid.v4(),
+    default: uuid.v4,
     required: true,
   },
   guildId: {
