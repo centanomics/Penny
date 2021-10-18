@@ -22,31 +22,39 @@ module.exports = {
         allowed: false,
       });
 
+      // saves perms to database
       await newPerm.save();
       message.channel.send(
         'Created Permissions for this server! Try using the permissions command again!'
       );
     } else {
+      // if the user has a valid argument update the permission
+      // if they dont/have no args show the perms
       if (args.length === 1) {
+        // grabs permission to change
         let permToChange = await Permissions.findOne({
           guildId: message.guildId,
           permissionName: args[0],
         });
 
+        // sets the new value
         const permFields = {
           allowed: !permToChange.allowed,
         };
 
+        // updates the permission
         permToChange = await Permissions.findByIdAndUpdate(
           permToChange._id,
           { $set: permFields },
           { new: true }
         );
 
+        // notifies the user of the change
         message.channel.send(
           `Changed the ${permToChange.permissionName} perm to ${permToChange.allowed}`
         );
       } else {
+        // sends an embed of the perms and how to change them
         const msgEmbed = new Discord.MessageEmbed()
           .setTitle('Penny Permissions')
           .setFooter(message.author.username, message.author.avatarURL());
