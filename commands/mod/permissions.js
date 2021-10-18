@@ -27,14 +27,44 @@ module.exports = {
         'Created Permissions for this server! Try using the permissions command again!'
       );
     } else {
-      const msgEmbed = new Discord.MessageEmbed()
-        .setTitle('Penny Permissions')
-        .setFooter(message.author.username, message.author.avatarURL());
-      for (let i = 0; i < perms.length; i++) {
-        msgEmbed.addField(perms[i].permissionName, perms[i].description, true);
-      }
+      if (args.length === 1) {
+        let permToChange = await Permissions.findOne({
+          guildId: message.guildId,
+          permissionName: args[0],
+        });
 
-      message.channel.send({ embeds: [msgEmbed] });
+        const permFields = {
+          allowed: !permToChange.allowed,
+        };
+
+        permToChange = await Permissions.findByIdAndUpdate(
+          permToChange._id,
+          { $set: permFields },
+          { new: true }
+        );
+
+        message.channel.send(
+          `Changed the ${permToChange.permissionName} perm to ${permToChange.allowed}`
+        );
+      } else {
+        const msgEmbed = new Discord.MessageEmbed()
+          .setTitle('Penny Permissions')
+          .setFooter(message.author.username, message.author.avatarURL());
+        for (let i = 0; i < perms.length; i++) {
+          msgEmbed.addField(
+            perms[i].permissionName + ' - ' + perms[i].allowed,
+            perms[i].description,
+            true
+          );
+        }
+
+        msgEmbed.addField(
+          'Changing perms',
+          'Use $permissions <permission name> to switch the perms on/off'
+        );
+
+        message.channel.send({ embeds: [msgEmbed] });
+      }
     }
   },
 };
