@@ -4,9 +4,10 @@
 module.exports = {
   name: 'ping',
   description: 'This makes the bot reply pong!',
-  delay: 5000,
+  delay: 0,
   mod: false,
   execute: (message, args) => {
     message.channel.send('pong!');
+    return true;
   },
 };
