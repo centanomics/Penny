@@ -42,6 +42,7 @@ const path = require('path');
 // creates a collection of commands and events
 client.commands = new Discord.Collection();
 client.events = new Discord.Collection();
+client.usedCommandRecently = new Set();
 
 (async function registerEvents(dir = 'commands') {
   await glob(path.join(__dirname, dir, '**/*.js'), (err, cmdFiles) => {
