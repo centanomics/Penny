@@ -15,6 +15,10 @@ const ChannelsSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  channelName: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('channels', ChannelsSchema);
