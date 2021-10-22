@@ -17,21 +17,24 @@ module.exports = {
           message: "You guild doesn't have the create-channels permission on!",
         };
       }
-      // const logChannel = await Channels.findOne({
-      //   guildId: message.guildId,
-      //   name: 'logs',
-      // });
-      // if (!logChannel) {
-      //   const newChannel = await message.guild.channels.create('logs');
-      //   const channelFields = new Channels({
-      //     guildId: message.guildId,
-      //     channelId: newChannel.id,
-      //     channelName: newChannel.name,
-      //   });
-      //   await channelFields.save();
-      // } else {
-      //   console.log('delete log channel!');
-      // }
+      const logChannel = await Channels.findOne({
+        guildId: message.guildId,
+        name: 'logs',
+      });
+      if (!logChannel) {
+        const newChannel = await message.guild.channels.create('logs');
+        const channelFields = new Channels({
+          guildId: message.guildId,
+          channelId: newChannel.id,
+          channelName: newChannel.name,
+        });
+        await channelFields.save();
+      } else {
+        const channelToDelete = await message.guild.channels.fetch(
+          logChannel.channelId
+        );
+        await channelToDelete.delete();
+      }
       return true;
     } catch (err) {
       console.log(err.message);
