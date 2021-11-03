@@ -1,3 +1,10 @@
+const Invites = require('../../models/invites');
+
 module.exports = async (client, invite) => {
-  console.log('invite deleted');
+  try {
+    const toDelete = await Invites.findOne({ inviteId: invite.code });
+    await Invites.findByIdAndDelete(toDelete._id);
+  } catch (err) {
+    console.log(err.message);
+  }
 };
