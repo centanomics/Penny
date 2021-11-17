@@ -27,8 +27,6 @@ module.exports = {
       if (!logChannel) {
         const newChannel = await message.guild.channels.create('logs');
 
-        console.log(message.guild.roles);
-
         const channelFields = new Channels({
           guildId: message.guildId,
           channelId: newChannel.id,
