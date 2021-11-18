@@ -15,6 +15,10 @@ const DefaultSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  roleType: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('defaults', DefaultSchema);
