@@ -4,7 +4,10 @@ const sendLog = require('../../utils/sendLog');
 
 module.exports = async (client, member) => {
   try {
-    const defaultRole = await Defaults.findOne({ guild: member.guild.id });
+    const defaultRole = await Defaults.findOne({
+      guild: member.guild.id,
+      roleType: 'default',
+    });
     await member.roles.add(defaultRole.roleId);
 
     // sendLog(client, defaultRole.guildId, 'User as been added');

@@ -25,7 +25,15 @@ module.exports = {
       // if log channel doesnt exist create it and add admin only perms
       // if it does exist delete it
       if (!logChannel) {
-        const newChannel = await message.guild.channels.create('logs');
+        const newChannel = await message.guild.channels.create('logs', {
+          type: 'GUILD_TEXT',
+          permissionOverwrites: [
+            {
+              id: message.guild.roles.everyone.id,
+              deny: ['VIEW_CHANNEL'],
+            },
+          ],
+        });
 
         const channelFields = new Channels({
           guildId: message.guildId,
