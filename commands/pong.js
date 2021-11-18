@@ -11,7 +11,7 @@ module.exports = {
   execute: (message, args) => {
     message.channel.send('ping!');
 
-    sendLog(message.guild, 'Test Log');
+    // sendLog(message.guild, 'Test Log');
 
     return true;
   },

@@ -15,6 +15,11 @@ const InivteSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  uses: {
+    type: Number,
+    default: 0,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('invites', InivteSchema);
