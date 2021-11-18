@@ -1,24 +1,25 @@
 const mongoose = require('mongoose');
 const uuid = require('uuid');
 
-const DefaultSchema = mongoose.Schema({
+const InivteSchema = mongoose.Schema({
   _id: {
     type: String,
     default: uuid.v4,
+    required: true,
+  },
+  inviteId: {
+    type: String,
     required: true,
   },
   guildId: {
     type: String,
     required: true,
   },
-  roleId: {
-    type: String,
-    required: true,
-  },
-  roleType: {
-    type: String,
+  uses: {
+    type: Number,
+    default: 0,
     required: true,
   },
 });
 
-module.exports = mongoose.model('defaults', DefaultSchema);
+module.exports = mongoose.model('invites', InivteSchema);
