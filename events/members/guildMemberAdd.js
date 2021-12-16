@@ -36,9 +36,9 @@ module.exports = async (client, member) => {
       `\`${member.user.tag}\` as been added from \`${code}\` invite`
     );
 
-    member.guild.systemChannel.send(
-      `<@${member.user.id}> has been added to the collection. Welcome!`
-    );
+    // member.guild.systemChannel.send(
+    //   `<@${member.user.id}> has been added to the collection. Welcome!`
+    // );
   } catch (err) {
     console.log(err.message);
   }

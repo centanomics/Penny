@@ -7,6 +7,7 @@ module.exports = async (guild, message) => {
   });
   if (channelExists) {
     const channel = await guild.channels.fetch(channelExists.channelId);
+    console.log(message);
     channel.send(message);
     return;
   } else {
