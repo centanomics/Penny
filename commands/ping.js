@@ -7,7 +7,11 @@ module.exports = {
   delay: 0,
   mod: false,
   execute: (message, args) => {
-    message.channel.send('pong!');
-    return true;
+    try {
+      message.channel.send('pong!');
+      return true;
+    } catch (error) {
+      return false;
+    }
   },
 };

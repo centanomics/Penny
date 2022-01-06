@@ -4,7 +4,7 @@
   "description": "A template for the discord bots I create.",
   "main": "bot.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --watchAll --coverage",
     "start": "node bot.js",
     "dev": "nodemon bot.js"
   },
