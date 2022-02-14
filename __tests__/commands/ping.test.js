@@ -10,7 +10,7 @@ describe('Ping Command', () => {
     jest.clearAllMocks();
   });
 
-  test('should send pong', () => {
+  test('should send pong!', () => {
     const runPing = ping.execute(msgMock, []);
     expect(msgMock.channel.send).toHaveBeenCalledWith('pong!');
   });

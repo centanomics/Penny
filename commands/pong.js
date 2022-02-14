@@ -9,7 +9,7 @@ module.exports = {
   delay: 10000,
   mod: false,
   execute: (message, args) => {
-    message.channel.send('ping!');
+    message.channel.send('$ping');
 
     // sendLog(message.guild, 'Test Log');
 

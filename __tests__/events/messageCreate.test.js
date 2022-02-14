@@ -1,20 +1,29 @@
 const messageCreate = require('../../events/message/messageCreate');
-const { getMessageMock } = require('../../__mocks__');
+const { getMessageMock, getClientMock } = require('../../__mocks__');
 
 describe('Message Handler', () => {
   const message = getMessageMock();
+  const client = getClientMock();
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   test('should throw an error when the bot sends a message', async () => {
-    message.content = '$ping';
-    try {
-      await messageCreate({}, message);
-    } catch (err) {
-      expect(err).toBeDefined();
-      // expect(message.channel.send).not.toHaveBeenCalled();
-    }
+    message.content = 'pong';
+    message.author.bot = false;
+
+    expect(() => messageCreate(client, message)).toThrow(
+      'user is a bot or there is no prefix'
+    );
+
+    // try {
+    //   await messageCreate(client, message);
+    //   console.log('err');
+    // } catch (err) {
+    //   console.log(err);
+    //   expect(err).toBeDefined();
+    //   expect(message.channel.send).toHaveBeenCalled();
+    // }
   });
 });

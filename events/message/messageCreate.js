@@ -3,8 +3,7 @@ module.exports = async (client, message) => {
     const prefix = process.env.COMMAND_PREFIX;
     // checks if the message had the prefix or from itself
     if (!message.content.startsWith(prefix) || message.author.bot) {
-      console.log(!message.content.startsWith(prefix), message.author.bot);
-      throw { message: 'user is a bot or there is no prefix' };
+      throw Error('user is a bot or there is no prefix');
     }
 
     // adds a command to the used recently list, removes it after a specified delay
@@ -53,6 +52,5 @@ module.exports = async (client, message) => {
     }
   } catch (err) {
     console.log(err.message);
-    return;
   }
 };

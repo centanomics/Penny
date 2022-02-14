@@ -2,10 +2,8 @@
 
 module.exports = {
   //guild member mock
-  // channel mock
-  getTextChannelMock: () => ({
-    send: jest.fn(),
-  }),
+  // client mock
+  getClientMock: () => ({}),
   //message mock
   getMessageMock: () => ({
     channel: {
