@@ -1,3 +1,4 @@
+const { run } = require('jest');
 const messageCreate = require('../../events/message/messageCreate');
 const { getMessageMock, getClientMock } = require('../../__mocks__');
 
@@ -13,9 +14,13 @@ describe('Message Handler', () => {
     message.content = 'pong';
     message.author.bot = false;
 
-    expect(() => messageCreate(client, message)).toThrow(
-      'user is a bot or there is no prefix'
-    );
+    try {
+      expect(() => messageCreate(client, message)).toThrow(
+        'user is a bot or there is no prefix'
+      );
+    } catch (err) {
+      console.log(err.message);
+    }
 
     // try {
     //   await messageCreate(client, message);
