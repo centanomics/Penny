@@ -3,6 +3,7 @@ module.exports = async (client, message) => {
     const prefix = process.env.COMMAND_PREFIX;
     // checks if the message had the prefix or from itself
     if (!message.content.startsWith(prefix) || message.author.bot) {
+      console.log('hi');
       throw Error('user is a bot or there is no prefix');
     }
 
@@ -52,5 +53,6 @@ module.exports = async (client, message) => {
     }
   } catch (err) {
     console.log(err.message);
+    return err;
   }
 };

@@ -11,16 +11,15 @@ describe('Message Handler', () => {
   });
 
   test('should throw an error when the bot sends a message', async () => {
-    message.content = 'pong';
+    message.content = '!pong';
     message.author.bot = false;
 
-    try {
-      expect(() => messageCreate(client, message)).toThrow(
-        'user is a bot or there is no prefix'
-      );
-    } catch (err) {
-      console.log(err.message);
-    }
+    // const result = await messageCreate(client, message);
+    // console.log(result);
+
+    expect(() => messageCreate(client, message)).toThrow(
+      'user is a bot or there is no prefix'
+    );
 
     // try {
     //   await messageCreate(client, message);
