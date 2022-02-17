@@ -19,7 +19,8 @@ describe('Message Handler', () => {
     // );
     expect.assertions(1);
     try {
-      await messageCreate(client, message);
+      const result = await messageCreate(client, message);
+      throw result;
     } catch (error) {
       expect(error.message).toEqual('user is a bot or there is no prefix');
     }
