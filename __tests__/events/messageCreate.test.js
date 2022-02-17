@@ -12,22 +12,16 @@ describe('Message Handler', () => {
 
   test('should throw an error when the bot sends a message', async () => {
     message.content = '!pong';
-    message.author.bot = false;
+    message.author.bot = true;
 
-    // const result = await messageCreate(client, message);
-    // console.log(result);
-
-    expect(() => messageCreate(client, message)).toThrow(
-      'user is a bot or there is no prefix'
-    );
-
-    // try {
-    //   await messageCreate(client, message);
-    //   console.log('err');
-    // } catch (err) {
-    //   console.log(err);
-    //   expect(err).toBeDefined();
-    //   expect(message.channel.send).toHaveBeenCalled();
-    // }
+    // expect(() => messageCreate(client, message)).not.toThrow(
+    //   'user is a bot or there is no prefix'
+    // );
+    expect.assertions(1);
+    try {
+      await messageCreate(client, message);
+    } catch (error) {
+      expect(error.message).toEqual('user is a bot or there is no prefix');
+    }
   });
 });
