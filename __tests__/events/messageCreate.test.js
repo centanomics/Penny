@@ -14,9 +14,6 @@ describe('Message Handler', () => {
     message.content = '!pong';
     message.author.bot = true;
 
-    // expect(() => messageCreate(client, message)).not.toThrow(
-    //   'user is a bot or there is no prefix'
-    // );
     expect.assertions(1);
     try {
       const result = await messageCreate(client, message);
