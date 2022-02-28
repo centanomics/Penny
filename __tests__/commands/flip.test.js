@@ -11,7 +11,6 @@ describe('flip command stuff', () => {
   });
   test('flip returns either heads or tails', () => {
     const flipResults = flip.execute(msgMock);
-    console.log(flipResults);
     expect(flipResults).toMatch(/Heads|Tails+/g);
   });
 });
