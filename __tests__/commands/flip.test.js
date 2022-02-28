@@ -10,8 +10,8 @@ describe('flip command stuff', () => {
     jest.clearAllMocks();
   });
   test('flip returns either heads or tails', () => {
-    const flipResults = flip();
+    const flipResults = flip.execute(msgMock);
     console.log(flipResults);
-    expect(flipResults).toMatch(/heads|tails+/g);
+    expect(flipResults).toMatch(/Heads|Tails+/g);
   });
 });

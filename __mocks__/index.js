@@ -7,7 +7,7 @@ module.exports = {
   //message mock
   getMessageMock: () => ({
     channel: {
-      send: jest.fn(message),
+      send: jest.fn(),
     },
     content: '',
     author: {

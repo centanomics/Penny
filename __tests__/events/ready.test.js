@@ -1,1 +1,3 @@
-describe('Ready event Tests', () => {});
+describe('Ready event Tests', () => {
+  test('it runs', () => {});
+});
