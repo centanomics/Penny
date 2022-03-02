@@ -4,8 +4,9 @@
   "description": "A template for the discord bots I create.",
   "main": "bot.js",
   "scripts": {
-    "test": "jest --watchAll --coverage",
+    "test": "jest --watchAll",
     "test-once": "jest",
+    "test-cover": "jest --coverage",
     "start": "node bot.js",
     "dev": "nodemon bot.js"
   },

@@ -12,6 +12,7 @@ describe('Ping Command', () => {
 
   test('should send pong!', () => {
     const runPing = ping.execute(msgMock, []);
+    expect(runPing).toBeTruthy();
     expect(msgMock.channel.send).toHaveBeenCalledWith('pong!');
   });
 });
