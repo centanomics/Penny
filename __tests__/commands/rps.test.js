@@ -10,8 +10,6 @@ describe('pong tests', () => {
   });
 
   test('test sends pong', () => {
-    const runPong = pong.execute(msgMock, []);
-    expect(runPong).toBeTruthy();
     expect(msgMock.channel.send).toHaveBeenCalledWith('ping!');
   });
 });
