@@ -10,6 +10,6 @@ describe('pong tests', () => {
   });
 
   test('test sends pong', () => {
-    expect(msgMock.channel.send).toHaveBeenCalledWith('ping!');
+    expect(msgMock.channel.send).toHaveBeenCalledWith('pong!');
   });
 });
