@@ -17,8 +17,9 @@ module.exports = async (client, member) => {
         const inviteFields = {};
         inviteFields.uses = newInvites[i].uses;
         // update record in database
+
         await Invites.findByIdAndUpdate(
-          code,
+          oldInvites[i]._id,
           { $set: inviteFields },
           { new: true }
         );
@@ -40,6 +41,6 @@ module.exports = async (client, member) => {
     //   `<@${member.user.id}> has been added to the collection. Welcome!`
     // );
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
   }
 };

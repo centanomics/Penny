@@ -52,6 +52,7 @@ module.exports = {
       return true;
     } catch (err) {
       console.log(err.message);
+      message.channel.send(err.message);
       return false;
     }
   },
