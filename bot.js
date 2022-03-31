@@ -27,6 +27,7 @@ const intents = [
   'GUILD_INVITES',
   'GUILD_MESSAGES',
   'GUILD_MESSAGE_REACTIONS',
+  'GUILD_PRESENCES',
 ];
 const client = new Discord.Client({
   intents: intents,
