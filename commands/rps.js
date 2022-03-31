@@ -12,26 +12,14 @@ module.exports = {
   description: 'Plays a game of rock paper scissors with the bot',
   delay: 5000,
   mod: false,
-  execute: async (message, args) => {
+  execute: (message, args) => {
     const botChoice = options[getRandomInt(3) + 1];
-    let userChoice; //args[0].toLowerCase();
+    let userChoice = args[0].toLowerCase();
 
-    // if (args.length === 0) {
-    //   const rpsHelperr = new Discord.MessageEmbed();
-    //   rpsHelperr.setTitle('Rps Help.');
-    //   rpsHelperr.addField(
-    //     '$rps "[rock, paper, or scissors]"',
-    //     'Play a game of Rock Paper Scissors against the bot.'
-    //   );
-    //   message.channel.send({ embed: rpsHelperr });
-    //   return;
-    // } else {
-    //   userChoice = args[0].toLowerCase();
-    // }
-
+    // checks to see if the user entered a valid value
     if (options.indexOf(userChoice) === -1) {
       message.channel.send('You gotta choose rock, paper, or scissors man');
-      return;
+      return false;
     }
     message.channel.send(
       `${message.author.username}: ${userChoice}\nPenny: ${botChoice}`
@@ -62,6 +50,6 @@ module.exports = {
       }
     }
 
-    return true;
+    return { botChoice, userChoice };
   },
 };
