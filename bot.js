@@ -76,3 +76,8 @@ client.usedCommandRecently = new Set();
 
 //login
 client.login(process.env.DISCORD_BOT_TOKEN);
+
+// api routes
+const apiRouter = require('./routes/api')(client);
+
+app.use('/api/', apiRouter);
