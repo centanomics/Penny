@@ -27,6 +27,7 @@ const intents = [
   'GUILD_INVITES',
   'GUILD_MESSAGES',
   'GUILD_MESSAGE_REACTIONS',
+  'GUILD_PRESENCES',
 ];
 const client = new Discord.Client({
   intents: intents,
@@ -42,6 +43,7 @@ const path = require('path');
 // creates a collection of commands and events
 client.commands = new Discord.Collection();
 client.events = new Discord.Collection();
+client.usedCommandRecently = new Set();
 
 (async function registerEvents(dir = 'commands') {
   await glob(path.join(__dirname, dir, '**/*.js'), (err, cmdFiles) => {
@@ -74,3 +76,8 @@ client.events = new Discord.Collection();
 
 //login
 client.login(process.env.DISCORD_BOT_TOKEN);
+
+// api routes
+const apiRouter = require('./routes/api')(client);
+
+app.use('/api/', apiRouter);

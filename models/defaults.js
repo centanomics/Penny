@@ -1,0 +1,24 @@
+const mongoose = require('mongoose');
+const uuid = require('uuid');
+
+const DefaultSchema = mongoose.Schema({
+  _id: {
+    type: String,
+    default: uuid.v4,
+    required: true,
+  },
+  guildId: {
+    type: String,
+    required: true,
+  },
+  roleId: {
+    type: String,
+    required: true,
+  },
+  roleType: {
+    type: String,
+    required: true,
+  },
+});
+
+module.exports = mongoose.model('defaults', DefaultSchema);
