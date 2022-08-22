@@ -36,7 +36,7 @@ module.exports = async (client, message) => {
           delayCommand(ver, command, message.author.id, cmdObject.delay);
           return;
         }
-
+        // if a user used a command with a delay recently will send this message
         if (client.usedCommandRecently.has(command + message.author.id)) {
           message.channel.send("You can't use that yet!");
           return;
