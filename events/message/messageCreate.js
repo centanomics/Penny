@@ -6,6 +6,11 @@ module.exports = async (client, message) => {
       throw Error('user is a bot or there is no prefix');
     }
 
+    // checks if the command starts with a number and if so ignores it
+    if (message.content[1] >= '0' && message.content[1] <= '9') {
+      return;
+    }
+
     // adds a command to the used recently list, removes it after a specified delay
     const delayCommand = (wentThrough, command, authorId, delayCount) => {
       if (wentThrough) {
