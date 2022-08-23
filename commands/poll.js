@@ -1,4 +1,10 @@
-const pollsHelp = () => {};
+const Discord = require('discord.js');
+
+const pollsHelp = (message, args) => {
+  const pollEmbed = new Discord.MessageEmbed().setTitle('Polls Help');
+  pollEmbed.addField('New', 'creates new bet');
+  message.channel.send({ embed: pollEmbed });
+};
 const createPoll = () => {};
 
 // @command     poll
@@ -10,11 +16,14 @@ module.exports = {
   delay: 0,
   mod: false,
   execute: (message, args) => {
-    message.channel.send('polls start!');
+    // message.channel.send('polls start!');
 
     switch (args[0]) {
+      case 'new':
+        createPoll();
+        return;
       default:
-        pollsHelp();
+        pollsHelp(message, args);
         return;
     }
 
