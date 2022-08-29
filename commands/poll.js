@@ -1,11 +1,21 @@
 const Discord = require('discord.js');
+const removeQuotes = require('../utils/removeQuotes');
 
 const pollsHelp = (message, args) => {
-  const pollEmbed = new Discord.MessageEmbed().setTitle('Polls Help');
-  pollEmbed.addField('New', 'creates new bet');
-  message.channel.send({ embed: pollEmbed });
+  console.log('lol');
+  // const pollEmbed = new Discord.MessageEmbed().setTitle('Polls Help');
+  // pollEmbed.addField('New', 'creates new bet');
+  // message.channel.send({ embed: pollEmbed });
 };
-const createPoll = () => {};
+const createPoll = async (message, args) => {
+  let moreArgs = args
+    .slice(1)
+    .join(' ')
+    .replace(/([“”])/g, '"')
+    .split('" "');
+  args = await removeQuotes(moreArgs);
+  console.log(args);
+};
 
 // @command     poll
 // @desc        poll managing commandd
@@ -20,7 +30,7 @@ module.exports = {
 
     switch (args[0]) {
       case 'new':
-        createPoll();
+        createPoll(message, args);
         return;
       default:
         pollsHelp(message, args);
