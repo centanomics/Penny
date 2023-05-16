@@ -11,6 +11,22 @@ const DefaultSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    userId: {
+        type: String,
+        required: true,
+    },
+    messageUrl: {
+        type: String,
+        required: true,
+    },
+    messageId: {
+        type: String,
+        required: true,
+    },
+    channelId: {
+        type: String,
+        required: true,
+    },
     pollName: {
         type: String,
         required: true,

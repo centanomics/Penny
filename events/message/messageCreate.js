@@ -1,6 +1,5 @@
 module.exports = async (client, message) => {
     try {
-        message.channel.sendTyping();
         const prefix = process.env.COMMAND_PREFIX;
         // checks if the message had the prefix or from itself
         if (!message.content.startsWith(prefix) || message.author.bot) {
@@ -26,6 +25,7 @@ module.exports = async (client, message) => {
         const command = args.shift().toLowerCase();
         const cmdObject = client.commands.get(command);
 
+        message.channel.sendTyping();
         if (cmdObject) {
             // checks if command needs mod role and if user had administrator role
             // runs if cmdmod is true and usermod is true or if only cmdmod is false
