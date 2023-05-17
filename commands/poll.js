@@ -64,6 +64,8 @@ const createPoll = async (message, args) => {
             guildId: message.guildId,
             userId: message.author.id,
             messageUrl: pollMessage.url,
+            messageId: pollMessage.id,
+            channelId: message.channel.id,
             pollName: args[0],
             pollArgs: args.slice(1),
         });
