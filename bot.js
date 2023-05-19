@@ -8,11 +8,11 @@ const port = 4000;
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/public/index.html'));
+    res.sendFile(path.join(__dirname + '/public/index.html'));
 });
 
 app.listen(port, () => {
-  console.log(`Bot Template listening at http://localhost:${port}`);
+    console.log(`Bot Template listening at http://localhost:${port}`);
 });
 
 // Start Bot Code
@@ -21,17 +21,18 @@ const Discord = require('discord.js');
 const connectDB = require('./config/db');
 
 const intents = [
-  'GUILDS',
-  'GUILD_MEMBERS',
-  'GUILD_BANS',
-  'GUILD_INVITES',
-  'GUILD_MESSAGES',
-  'GUILD_MESSAGE_REACTIONS',
-  'GUILD_PRESENCES',
+    'GUILDS',
+    'GUILD_MEMBERS',
+    'GUILD_BANS',
+    'GUILD_INVITES',
+    'GUILD_MESSAGES',
+    'GUILD_MESSAGE_REACTIONS',
+    'GUILD_PRESENCES',
 ];
 const client = new Discord.Client({
-  intents: intents,
-  ws: { intents: intents },
+    intents: intents,
+    ws: { intents: intents },
+    partials: ['USER', 'REACTION', 'MESSAGE'],
 });
 
 // connects to database
@@ -46,32 +47,32 @@ client.events = new Discord.Collection();
 client.usedCommandRecently = new Set();
 
 (async function registerEvents(dir = 'commands') {
-  await glob(path.join(__dirname, dir, '**/*.js'), (err, cmdFiles) => {
-    for (let file of cmdFiles) {
-      let cmdName = file.substring(
-        file.lastIndexOf('/') + 1,
-        file.indexOf('.js')
-      );
-      let cmdModule = require(path.join(file));
-      client.commands.set(cmdName, cmdModule);
-    }
-  });
+    await glob(path.join(__dirname, dir, '**/*.js'), (err, cmdFiles) => {
+        for (let file of cmdFiles) {
+            let cmdName = file.substring(
+                file.lastIndexOf('/') + 1,
+                file.indexOf('.js')
+            );
+            let cmdModule = require(path.join(file));
+            client.commands.set(cmdName, cmdModule);
+        }
+    });
 })();
 
 (async function registerEvents(dir = 'events') {
-  await glob(path.join(__dirname, dir, '**/*.js'), (err, eventFiles) => {
-    for (let file of eventFiles) {
-      let evtName = file.substring(
-        file.lastIndexOf('/') + 1,
-        file.indexOf('.js')
-      );
-      let evtModule = require(path.join(file));
-      client.events.set(evtName, evtModule);
+    await glob(path.join(__dirname, dir, '**/*.js'), (err, eventFiles) => {
+        for (let file of eventFiles) {
+            let evtName = file.substring(
+                file.lastIndexOf('/') + 1,
+                file.indexOf('.js')
+            );
+            let evtModule = require(path.join(file));
+            client.events.set(evtName, evtModule);
 
-      // creates event listener for each of the event files
-      client.on(evtName, evtModule.bind(null, client));
-    }
-  });
+            // creates event listener for each of the event files
+            client.on(evtName, evtModule.bind(null, client));
+        }
+    });
 })();
 
 //login
