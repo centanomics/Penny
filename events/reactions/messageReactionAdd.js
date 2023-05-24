@@ -1,7 +1,6 @@
 const Polls = require('../../models/polls');
 // sends a log there is a reaction
 module.exports = async (client, messageReaction, user) => {
-    console.log('hi');
     try {
         const poll = await Polls.find({
             messageId: messageReaction.message.id,
@@ -13,12 +12,24 @@ module.exports = async (client, messageReaction, user) => {
         if (poll.length === 0) {
             throw { message: 'Message is not a poll' };
         }
+        // console.log(messageReaction.emoji);
+        if (user.id === poll[0].userId && messageReaction.emoji.name === '❌') {
+            if (!poll[0].isClosed) {
+                const pollFields = {
+                    isClosed: true,
+                };
 
-        const reactions = messageReaction.message.reactions.cache;
+                await Polls.findByIdAndUpdate(
+                    poll[0]._id,
+                    { $set: pollFields },
+                    { new: true }
+                );
 
-        reactions.forEach(async (reaction) => {
-            console.log(reaction._emoji.name);
-        });
+                messageReaction.message.channel.send(
+                    `"${poll[0].pollName}" is now closed.`
+                );
+            }
+        }
 
         return true;
     } catch (error) {

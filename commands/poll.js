@@ -104,7 +104,7 @@ const showPolls = async (message, args) => {
     const pollMessage = await message.channel.send({ embeds: [pollEmbed] });
 };
 
-const deletePolls = async (message, args) => {
+const deletePoll = async (message, args) => {
     // separates the arguments in the command by pair of quotation marks
     let pollArgs = args
         .slice(1)
@@ -145,6 +145,51 @@ const deletePolls = async (message, args) => {
     }
 };
 
+const closePoll = async (message, args) => {
+    let pollArgs = args
+        .slice(1)
+        .join(' ')
+        .replace(/([“”])/g, '"')
+        .split('" "');
+    args = await removeQuotes(pollArgs);
+
+    try {
+        const polls = await Polls.find({
+            guidId: message.guild.id,
+            userId: message.author.id,
+            pollName: args[0],
+        });
+
+        if (polls.length === 0) {
+            throw { message: 'Poll does not exist.' };
+        }
+
+        let messageToUpdate = await message.guild.channels.fetch(
+            polls[0].channelId
+        );
+        messageToUpdate = await messageToUpdate.messages.fetch(
+            polls[0].messageId
+        );
+
+        const pollFields = {
+            isClosed: true,
+        };
+
+        messageToUpdate.react('❌');
+
+        await Polls.findByIdAndUpdate(
+            polls[0]._id,
+            { $set: pollFields },
+            { new: true }
+        );
+
+        message.channel.send(`"${polls[0].pollName}" is now closed.`);
+    } catch (error) {
+        message.channel.send(error.message);
+        console.log(error);
+    }
+};
+
 // @command     poll
 // @desc        poll managing commandd
 // @access      all
@@ -164,7 +209,10 @@ module.exports = {
                 showPolls(message, args);
                 return;
             case 'delete':
-                deletePolls(message, args);
+                deletePoll(message, args);
+                return;
+            case 'close':
+                closePoll(message, args);
                 return;
             default:
                 pollsHelp(message, args);
