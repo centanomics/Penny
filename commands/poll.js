@@ -2,12 +2,27 @@ const Discord = require('discord.js');
 const removeQuotes = require('../utils/removeQuotes');
 const Polls = require('../models/polls');
 
-const pollsHelp = (message, args) => {
-    console.log('lol');
-    // const pollEmbed = new Discord.MessageEmbed().setTitle('Polls Help');
-    // pollEmbed.addField('New', 'creates new bet');
-    // message.channel.send({ embed: pollEmbed });
+const pollsHelp = async (message, args) => {
+    const pollEmbed = new Discord.MessageEmbed().setTitle('Polls Help');
+    pollEmbed.addField(
+        '$poll new "poll title" "option 1" ... "option 9"',
+        'Creates a new poll with up to 9 options. If no options given, will default to yes and no.'
+    );
+    pollEmbed.addField(
+        '$poll show',
+        "Shows the polls you've created in the server, providing links to them."
+    );
+    pollEmbed.addField(
+        '$poll close "poll title"',
+        "Closes a poll you've created in the server, adding an ❌ reaction. You can close polls yourself by adding an ❌ reaction manually."
+    );
+    pollEmbed.addField(
+        '$poll delete "poll title"',
+        "Deletes a poll you've created in the server, removing the message with the poll."
+    );
+    await message.channel.send({ embeds: [pollEmbed] });
 };
+
 const createPoll = async (message, args) => {
     //setup
     const numberEmotes = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣'];
