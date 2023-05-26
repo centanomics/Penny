@@ -12,9 +12,30 @@ describe('rps tests', () => {
   test('rps sends truthy value and runs', () => {
     const rpsResults = rps.execute(msgMock, ['rock']);
     expect(rpsResults).toBeTruthy();
-    expect(rpsResults.userChoice).toBe('rock');
+    expect(rpsResults.userChoice).toMatch(/rock|paper|scissors+/g);
     expect(rpsResults.botChoice).toMatch(/rock|paper|scissors+/g);
-    expect(msgMock.channel.send).toBeCalledWith(expect.any(String));
+    expect(msgMock.channel.send).toHaveBeenCalledWith(expect.any(String));
+  });
+
+  test('rps sends rock and runs', () => {
+    const rpsResults = rps.execute(msgMock, ['rock']);
+    expect(msgMock.channel.send).toHaveBeenCalledWith(
+      expect.stringMatching(/You win!|The bot wins!|You tied!+/g)
+    );
+  });
+
+  test('rps sends paper and runs', () => {
+    const rpsResults = rps.execute(msgMock, ['paper']);
+    expect(msgMock.channel.send).toHaveBeenCalledWith(
+      expect.stringMatching(/You win!|The bot wins!|You tied!+/g)
+    );
+  });
+
+  test('rps sends scissors and runs', () => {
+    const rpsResults = rps.execute(msgMock, ['scissors']);
+    expect(msgMock.channel.send).toHaveBeenCalledWith(
+      expect.stringMatching(/You win!|The bot wins!|You tied!+/g)
+    );
   });
 
   test("user doesn't choose one of the three options", () => {

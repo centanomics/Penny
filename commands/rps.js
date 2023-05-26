@@ -24,29 +24,23 @@ module.exports = {
     message.channel.send(
       `${message.author.username}: ${userChoice}\nPenny: ${botChoice}`
     );
-    if (botChoice === userChoice) {
+    if (userChoice === botChoice) {
       message.channel.send('You tied!');
     } else {
-      if (botChoice === 'rock') {
-        if (userChoice === 'paper') {
-          message.channel.send('You win!');
-        } else {
-          message.channel.send('The bot wins!');
-        }
+      if (userChoice === 'rock') {
+        message.channel.send(
+          botChoice === 'paper' ? 'The bot wins!' : 'You win!'
+        );
       }
-      if (botChoice === 'paper') {
-        if (userChoice === 'scissors') {
-          message.channel.send('You win!');
-        } else {
-          message.channel.send('The bot wins!');
-        }
+      if (userChoice === 'paper') {
+        message.channel.send(
+          botChoice === 'scissors' ? 'The bot wins!' : 'You win!'
+        );
       }
-      if (botChoice === 'scissors') {
-        if (userChoice === 'rock') {
-          message.channel.send('You win!');
-        } else {
-          message.channel.send('The bot wins!');
-        }
+      if (userChoice === 'scissors') {
+        message.channel.send(
+          botChoice === 'rock' ? 'The bot wins!' : 'You win!'
+        );
       }
     }
 
